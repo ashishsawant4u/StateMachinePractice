@@ -12,6 +12,7 @@ import com.devx.sm.actions.PerformPackaginAction;
 import com.devx.sm.actions.PerformQCAction;
 import com.devx.sm.actions.PerformResourcingAction;
 import com.devx.sm.actions.PerformSouringAction;
+import com.devx.sm.actions.SouringFailureHandlerAction;
 
 import jakarta.annotation.Resource;
 
@@ -34,6 +35,9 @@ public class FulfillmentSMConfiguration extends StateMachineConfigurerAdapter<Fu
 	@Resource(name = "performResourcingAction")
 	PerformResourcingAction performResourcingAction;
 	
+	@Resource(name = "souringFailureHandlerAction")
+	SouringFailureHandlerAction SouringFailureHandlerAction;
+	
 	@Override
 	public void configure(StateMachineStateConfigurer<FulfillmentStates, FulfillmentEvents> states) throws Exception 
 	{
@@ -53,7 +57,7 @@ public class FulfillmentSMConfiguration extends StateMachineConfigurerAdapter<Fu
 				  .source(FulfillmentStates.READY_FOR_SOURCING)
 				  .target(FulfillmentStates.SOURCED)
 				  .event(FulfillmentEvents.INIT_SOURCING)
-				  .action(performSouringAction);
+				  .action(performSouringAction,SouringFailureHandlerAction);
 		
 		transitions.withExternal()
 			  .source(FulfillmentStates.SOURCED)
