@@ -29,6 +29,11 @@ public class PerformSouringAction implements Action<FulfillmentStates, Fulfillme
 		{
 			log.info("ORDER IN ACTION ==> "+orderModel.getOrderid());
 			
+			if((boolean)context.getStateMachine().getExtendedState().getVariables().get("failSourcingAction"))
+			{
+				int x = 100/0;  //throwing some error during sourcing action this should call SouringFailureHandlerAction
+			}
+			
 			orderModel.setOrderStatus(FulfillmentStates.SOURCED.name());
 		}
 		

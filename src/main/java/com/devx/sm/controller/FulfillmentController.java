@@ -42,6 +42,7 @@ public class FulfillmentController
 	    
 		stateMachine.getExtendedState().getVariables().put("someRandomVariable", "someRandomValue");
 		stateMachine.getExtendedState().getVariables().put("someRandomBooleanVariable", false);
+		stateMachine.getExtendedState().getVariables().put("failSourcingAction", true);
 		
 	    stateMachine.sendEvent(sourcingMsg);
 	}
